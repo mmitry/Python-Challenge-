@@ -5,22 +5,29 @@
 import csv
 import os
 
-# Files to load and output (update with correct file paths)
-file_to_load = os.path.join("Resources", "budget_data.csv")  # Input file path
-file_to_output = os.path.join("analysis", "budget_analysis.txt")  # Output file path
+input_path = os.path.join("Python-Challenge-/PyBank/Resources/budget_data.csv")
+output_path = os.path.join("Python-Challenge-/PyBank/analysis/budget_analysis.txt")
 
-# Define variables to track the financial data
+# Define Variables
 total_months = 0
 total_net = 0
-# Add more variables to track other necessary financial data
+
+previous_month = 0
+current_month = 0 
+total_change = 0
+
+greatest_increase = 0
+greatest_decrease = 0
+greatest_increase_date = ""
+greatest_decrease_date = ""
 
 # Open and read the csv
-with open(file_to_load) as financial_data:
+with open(input_path) as financial_data:
     reader = csv.reader(financial_data)
 
     # Skip the header row
-    header = next(reader)
-
+    csv_header = next(reader)
+    
     # Extract first row to avoid appending to net_change_list
 
 
@@ -29,17 +36,37 @@ with open(file_to_load) as financial_data:
 
     # Process each row of data
     for row in reader:
+        # Print Total Months
+        total_months += 1
+        date = row[0]
+        current_month = int(row[1])
+        total_net += current_month
+        
 
         # Track the total
 
 
         # Track the net change
+        if total_months == 1:
+            previous_month = int(row[1])
+        else:
+            current_month = int(row[1])
+            change = current_month - previous_month
+            total_change += change 
+           
+            # Calculate the greatest increase in profits (month and amount)
+            if change > greatest_increase:
+                greatest_increase = change
+                greatest_increase_date = date
 
 
-        # Calculate the greatest increase in profits (month and amount)
+            # Calculate the greatest decrease in losses (month and amount)
+            if change < greatest_decrease:
+                greatest_decrease = change
+                greatest_decrease_date = date
 
-
-        # Calculate the greatest decrease in losses (month and amount)
+        # Reset
+        previous_month = current_month
 
 
 
@@ -50,8 +77,18 @@ with open(file_to_load) as financial_data:
 
 
 # Print the output
-
+output = f"""
+Financial Analysis
+--------------------------------------------------------
+Total Months: {total_months} 
+Total Net: ${total_net}
+Average Change: ${total_change / (total_months - 1)}
+Greatest Increase in Profits: {greatest_increase_date} $ {greatest_increase} 
+Greatest Decrease in Profits: {greatest_decrease_date} $ {greatest_decrease} """
+        
+print(output)  
 
 # Write the results to a text file
-with open(file_to_output, "w") as txt_file:
+with open(output_path, "w") as txt_file:
     txt_file.write(output)
+
