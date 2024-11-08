@@ -5,8 +5,8 @@
 import csv
 import os
 
-input_path = os.path.join("Python-Challenge-/PyBank/Resources/budget_data.csv")
-output_path = os.path.join("Python-Challenge-/PyBank/analysis/budget_analysis.txt")
+input_path = os.path.join("PyBank/Resources/budget_data.csv")
+output_path = os.path.join("PyBank/analysis/budget_analysis.txt")
 
 # Define Variables
 total_months = 0
@@ -27,12 +27,6 @@ with open(input_path) as financial_data:
 
     # Skip the header row
     csv_header = next(reader)
-    
-    # Extract first row to avoid appending to net_change_list
-
-
-    # Track the total and net change
-
 
     # Process each row of data
     for row in reader:
@@ -40,11 +34,7 @@ with open(input_path) as financial_data:
         total_months += 1
         date = row[0]
         current_month = int(row[1])
-        total_net += current_month
-        
-
-        # Track the total
-
+        total_net += current_month       
 
         # Track the net change
         if total_months == 1:
@@ -67,14 +57,6 @@ with open(input_path) as financial_data:
 
         # Reset
         previous_month = current_month
-
-
-
-# Calculate the average net change across the months
-
-
-# Generate the output summary
-
 
 # Print the output
 output = f"""

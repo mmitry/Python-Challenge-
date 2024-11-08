@@ -43,8 +43,6 @@ with open(input_path) as election_data:
         # Add a vote to the candidate's count
         candidate_votes[candidate_name] += 1
 
-
-
     # Write the total vote count to the text file
 
     output = f"""
@@ -67,14 +65,6 @@ with open(input_path) as election_data:
             candidate_percentage = candidate_percentage
 
         output += f"\t{candidate}: {candidate_percentage:.2f}% ({votes})\n"
-        # Get the vote count and calculate the percentage
-
-
-        # Update the winning candidate if this one has more votes
-
-
-        # Print and save each candidate's vote count and percentage
-
 
     # Generate and print the winning candidate summary
     winner = f"""
